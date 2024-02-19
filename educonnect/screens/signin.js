@@ -5,11 +5,17 @@ import {
   Pressable,
   Keyboard,
   StatusBar,
+  ActivityIndicator,
+  
 } from "react-native";
+import { LOGIN } from "../store/actionTypes";
 import { auth } from "../firebaseConfig";
-import { signInWithEmailAndPassword, setPersistence } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState, useEffect } from "react";
 import styles from "../styles";
+import store from "../store/store";
+import getName from "../databaseFunctions/getName";
+
 
 export default function Signin({ navigation, onBackPress }) {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -18,14 +24,18 @@ export default function Signin({ navigation, onBackPress }) {
   const [Loading, setLoading] = useState(false);
   async function login(email, password) {
     console.log("logging in");
-
+    if (store.getState().email !== "" && store.getState().name !== "") {
+      navigation.navigate("Welcome");
+      return;
+    }
     await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         console.log("logged in");
         const user = userCredential.user;
+
         setLoading(false);
-        navigation.navigate("Welcome");
+        // navigation.navigate("Welcome");
         const result = {
           user: user,
           success: true,
@@ -67,14 +77,20 @@ export default function Signin({ navigation, onBackPress }) {
     if (email === "" || password === "") {
       return alert("Please fill in all fields");
     }
+    setLoading(true);
+    const result = await login(email, password);
     setEmail("");
     setPassword("");
-    setLoading(true);
-    const result = login(email, password);
-    console.log(result);
-
-    if (result.success === true) {
-      setLoading(false);
+    if (result.success) {
+      const name = await getName(email);
+      const data = {
+        email: email,
+        name: name,
+      };
+      store.dispatch({
+        type: LOGIN,
+        payload: data,
+      });
       navigation.navigate("Welcome");
     }
   }
@@ -112,16 +128,10 @@ export default function Signin({ navigation, onBackPress }) {
           <>
             {Loading ? (
               <>
-                <Pressable style={[styles.buttonSignin, styles.button]}>
-                  <Text
-                    style={styles.buttonText}
-                    onPress={() => {
-                      signin();
-                    }}
-                  >
-                    Signing in...
-                  </Text>
-                </Pressable>
+                <ActivityIndicator
+                  size="small"
+                  color={"#c6c6c6"}
+                ></ActivityIndicator>
               </>
             ) : (
               <Pressable style={[styles.buttonSignin, styles.button]}>
@@ -148,6 +158,7 @@ export default function Signin({ navigation, onBackPress }) {
           </>
         )}
       </View>
+      
     </>
   );
 }

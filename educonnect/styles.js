@@ -19,19 +19,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
   },
-  topicButton:{
-    width:"80%",
-    marginTop:20,
-    backgroundColor:"#000",
-    borderBottomColor:"#C6C6C6",
-    borderBottomWidth:1,
-    height:50,
-    
+  topicButton: {
+    width: "80%",
+    marginTop: 20,
+    backgroundColor: "#000",
+    borderBottomColor: "#C6C6C6",
+    borderBottomWidth: 1,
+    height: 50,
   },
-  topicText:{
-    color:"#C6C6C6",
-    fontSize:20,
-    padding:10,
+  topicText: {
+    color: "#C6C6C6",
+    fontSize: 20,
+    padding: 10,
   },
   buttonText: {
     color: "#fff",
@@ -49,7 +48,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   buttonSignin: {
-    
     bottom: 120,
   },
   button: {
@@ -61,12 +59,33 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     position: "absolute",
-    zIndex:-1,
-    
+    zIndex: -1,
   },
-  buttonSignup:{
+  buttonSignup: {
     bottom: 50,
-  }
+  },
+  navBar: {
+    width: "100%",
+    height: 50,
+    borderWidth: 2,
+    flex: 1,
+    backgroundColor: "#000",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  navbarIcon: {
+    color: "#C9C9C9",
+    fontSize: 30,
+    width: "100%",
+    height: "100%",
+  },
+  navbarButton: {
+    height: "100%",
+    width: "33%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 export default styles;

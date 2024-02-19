@@ -8,6 +8,7 @@ import {
   BackHandler,
   Alert,
 } from "react-native";
+import Navbar from "./components/navbar";
 import styles from "../styles";
 import getTopics from "../databaseFunctions/getTopics";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
@@ -67,7 +68,9 @@ export default function Welcome({ navigation, onBackPress }) {
             </Pressable>
           );
         })}
+        
       </View>
+      
     </>
   );
 }
