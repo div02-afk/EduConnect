@@ -19,7 +19,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
   },
-
+  topicButton:{
+    width:"80%",
+    marginTop:20,
+    backgroundColor:"#000",
+    borderBottomColor:"#C6C6C6",
+    borderBottomWidth:1,
+    height:50,
+    
+  },
+  topicText:{
+    color:"#C6C6C6",
+    fontSize:20,
+    padding:10,
+  },
   buttonText: {
     color: "#fff",
     fontSize: 20,

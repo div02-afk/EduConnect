@@ -7,7 +7,7 @@ import {
   StatusBar,
 } from "react-native";
 import { auth } from "../firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, setPersistence } from "firebase/auth";
 import React, { useState, useEffect } from "react";
 import styles from "../styles";
 
@@ -18,6 +18,7 @@ export default function Signin({ navigation, onBackPress }) {
   const [Loading, setLoading] = useState(false);
   async function login(email, password) {
     console.log("logging in");
+
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -63,9 +64,8 @@ export default function Signin({ navigation, onBackPress }) {
     };
   }, []);
   async function signin() {
-    if(email === "" || password === ""){
+    if (email === "" || password === "") {
       return alert("Please fill in all fields");
-    
     }
     setEmail("");
     setPassword("");
@@ -84,7 +84,7 @@ export default function Signin({ navigation, onBackPress }) {
 
   return (
     <>
-    <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" />
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Welcome Back</Text>

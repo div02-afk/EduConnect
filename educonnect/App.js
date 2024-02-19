@@ -6,11 +6,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Welcome from "./screens/welcome";
 import React from "react";
 import { StatusBar } from "react-native";
+import Topic from "./screens/topic";
 const stack = createNativeStackNavigator();
-
-
-
-
 
 export default function App() {
   return (
@@ -31,6 +28,11 @@ export default function App() {
           <stack.Screen
             name="Welcome"
             component={Welcome}
+            options={{ headerShown: false }}
+          />
+          <stack.Screen
+            name="Topic"
+            component={Topic}
             options={{ headerShown: false }}
           />
         </stack.Navigator>
