@@ -39,6 +39,7 @@ export default function Signin({ navigation, onBackPress }) {
           success: false,
           error: error,
         };
+        setLoading(false);
         console.log(error);
         return result;
       });
@@ -62,6 +63,10 @@ export default function Signin({ navigation, onBackPress }) {
     };
   }, []);
   async function signin() {
+    if(email === "" || password === ""){
+      return alert("Please fill in all fields");
+    
+    }
     setEmail("");
     setPassword("");
     setLoading(true);
