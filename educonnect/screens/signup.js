@@ -1,4 +1,4 @@
-import { TextInput, View, Text, Pressable ,StatusBar} from "react-native";
+import { TextInput, View, Text, Pressable ,StatusBar,Keyboard} from "react-native";
 import styles from "../styles";
 import React, { useState, useEffect } from "react";
 import {auth} from "../firebaseConfig";
