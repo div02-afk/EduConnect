@@ -1,7 +1,7 @@
 import "./firebaseConfig";
 import Signin from "./screens/signin";
 import Signup from "./screens/signup";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Welcome from "./screens/welcome";
 import React from "react";
@@ -16,7 +16,7 @@ export default function App() {
   return (
     <>
       <StatusBar barStyle="light-content" />
-      <NavigationContainer>
+      <NavigationContainer theme={DarkTheme}>
         <stack.Navigator initialRouteName="Signin">
           <stack.Screen
             name="Signin"

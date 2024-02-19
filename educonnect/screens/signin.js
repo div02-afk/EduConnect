@@ -79,6 +79,7 @@ export default function Signin({ navigation, onBackPress }) {
 
   return (
     <>
+    <StatusBar barStyle="light-content" />
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Welcome Back</Text>
