@@ -39,7 +39,7 @@ export default function Welcome({ navigation, onBackPress }) {
       // console.log(result);
       setTopics(result);
     });
-  }, []);
+  },[]);
   const filteredTopics = topics.filter((topic) =>
     topic.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -71,7 +71,7 @@ export default function Welcome({ navigation, onBackPress }) {
               onPress={() => {
                 store.dispatch({
                   type: SET_CURRENT_TOPIC,
-                  payload: topic.id,
+                  payload: {id:topic.id, name:topic.name},
                 })
                 navigation.navigate("Topic");
               }}

@@ -69,6 +69,15 @@ const styles = StyleSheet.create({
     height: "80%",
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "column",
+  },
+  scroll:{
+    width:"100%",
+    height:"100%",
+    borderWidth:2,
+    borderColor:"white",
+    flex:1,
+    flexDirection:"row",
   },
   navBar: {
     width: "100%",
@@ -79,6 +88,29 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     flexDirection: "row",
+  },
+  card: {
+    width: 200,
+    height: 200,
+    backgroundColor: "#171717",
+    margin: 10,
+    borderRadius: 10,
+    padding: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  accountInfo:{
+    width:"100%",
+    height:"20%",
+    justifyContent:"center",
+    alignItems:"flex-start",
+    padding:20,
+  },
+  text:{
+    color:"#C6C6C6",
+    fontSize:20,
+    textAlign:"center",
+    
   },
   navbarIcon: {
     color: "#C9C9C9",

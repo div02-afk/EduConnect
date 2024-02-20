@@ -83,10 +83,11 @@ export default function Signin({ navigation, onBackPress }) {
     setPassword("");
     if (result.success) {
       const name = await getName(email);
+      console.log(name, "in signin in");
       const data = {
         email: email,
-        name: name,
       };
+      console.log(data);
       store.dispatch({
         type: LOGIN,
         payload: data,
