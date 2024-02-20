@@ -1,7 +1,7 @@
 import { Pressable, View, Keyboard } from "react-native";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faHouse, faMessage, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faM, faMessage, faU, faUser } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../styles";
 
 export default function Navbar({ navigation }) {
@@ -49,7 +49,7 @@ export default function Navbar({ navigation }) {
               }}
             >
               <FontAwesomeIcon
-                icon={faUser}
+                icon={faMessage}
                 size={22}
                 style={styles.navbarIcon}
               />
@@ -61,7 +61,7 @@ export default function Navbar({ navigation }) {
               }}
             >
               <FontAwesomeIcon
-                icon={faMessage}
+                icon={faUser}
                 size={22}
                 style={styles.navbarIcon}
               />

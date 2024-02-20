@@ -64,6 +64,12 @@ const styles = StyleSheet.create({
   buttonSignup: {
     bottom: 50,
   },
+  subTopicList: {
+    width: "100%",
+    height: "80%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   navBar: {
     width: "100%",
     height: 50,

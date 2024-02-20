@@ -7,11 +7,13 @@ import {
   TextInput,
   BackHandler,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import Navbar from "./components/navbar";
 import styles from "../styles";
 import getTopics from "../databaseFunctions/getTopics";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import store from "../store/store";
+import { SET_CURRENT_TOPIC } from "../store/actionTypes";
 export default function Welcome({ navigation, onBackPress }) {
   const [topics, setTopics] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,20 +57,30 @@ export default function Welcome({ navigation, onBackPress }) {
           placeholderTextColor="#c6c6c6"
           style={styles.input}
         />
-        {filteredTopics.map((topic) => {
+        {topics.length === 0 ? (
+          <ActivityIndicator
+            size="large"
+            color={"#c6c6c6"}
+          ></ActivityIndicator>
+        ):(
+        filteredTopics.map((topic) => {
           return (
             <Pressable
               style={styles.topicButton}
               key={topic.id}
               onPress={() => {
-                navigation.navigate("Topic", { id: topic.id });
+                store.dispatch({
+                  type: SET_CURRENT_TOPIC,
+                  payload: topic.id,
+                })
+                navigation.navigate("Topic");
               }}
             >
               <Text style={styles.topicText}>{topic.name}</Text>
             </Pressable>
           );
-        })}
-        
+        }))
+      }
       </View>
       
     </>
