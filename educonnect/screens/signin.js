@@ -22,12 +22,18 @@ export default function Signin({ navigation, onBackPress }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let oldEmail = store.getState().email;
+    let oldName = store.getState().name;
+    if (oldEmail !== "" && oldName !== "" && oldName !== "John Doe" && oldEmail !== "johndoe@gmail.com") {
+      navigation.navigate("Welcome");
+    }
+  }, []);
+
   async function login(email, password) {
     console.log("logging in");
-    if (store.getState().email !== "" && store.getState().name !== "") {
-      navigation.navigate("Welcome");
-      return;
-    }
+    let result = {};
     await signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         // Signed in
@@ -36,24 +42,25 @@ export default function Signin({ navigation, onBackPress }) {
 
         setLoading(false);
         // navigation.navigate("Welcome");
-        const result = {
+        result = {
           user: user,
           success: true,
         };
-        return result;
+        
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        const result = {
+        result = {
           success: false,
           error: error,
         };
         setLoading(false);
         console.log(error);
-        return result;
+        
       });
+      return result;
   }
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -79,13 +86,13 @@ export default function Signin({ navigation, onBackPress }) {
     }
     setLoading(true);
     const result = await login(email, password);
-    setEmail("");
-    setPassword("");
+    console.log(result);
     if (result.success) {
       const name = await getName(email);
       console.log(name, "in signin in");
       const data = {
         email: email,
+        name: name,
       };
       console.log(data);
       store.dispatch({
@@ -94,6 +101,8 @@ export default function Signin({ navigation, onBackPress }) {
       });
       navigation.navigate("Welcome");
     }
+    setEmail("");
+    setPassword("");
   }
   function signup() {
     navigation.navigate("Signup");

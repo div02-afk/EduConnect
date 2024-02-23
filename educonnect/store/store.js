@@ -20,6 +20,7 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
       case LOGIN:
         draft.email = action.payload.email;
+        draft.name = action.payload.name;
         break;
       case SET_NAME:
         draft.name = action.payload.name;

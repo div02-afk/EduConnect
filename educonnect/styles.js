@@ -98,6 +98,28 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
+    
+  },
+  messageBox: {
+    // width: 200,
+    minWidth:100,
+    backgroundColor: "#171717",
+    margin: 10,
+    borderRadius: 10,
+    padding: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  messageText:{
+    color:"#C6C6C6",
+    fontSize:20,
+    textAlign:"left",
+  },
+  messageSender:{
+    color:"#C8C8C8",
+    fontSize:16,
+    textAlign:"left",
+    fontWeight:"bold",
   },
   accountInfo:{
     width:"100%",

@@ -8,6 +8,7 @@ export default async function getName(email) {
 
   if (!querySnapshot.empty) {
     const doc = querySnapshot.docs[0];
+    
     store.dispatch({ type: SET_NAME, payload: { name: doc.data().name } });
     const name = doc.data().name;
     return name;
