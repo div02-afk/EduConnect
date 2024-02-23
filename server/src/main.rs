@@ -1,8 +1,9 @@
 use axum::routing::get;
 use socketioxide::{
-    extract::{Data, SocketRef,State},
+    extract::{Data, SocketRef, State},
     SocketIo,
 };
+use std::env;
 use tower::ServiceBuilder;
 use tower_http::cors::CorsLayer;
 use tracing::info;
@@ -12,15 +13,14 @@ use tracing_subscriber::FmtSubscriber;
 struct MessageIn {
     topic: String,
     message: String,
-    sender:String
+    sender: String,
 }
 #[derive(Debug, serde::Serialize)]
-struct Message{
-    message:String,
-    sender:String,
-    date : chrono::DateTime<chrono::Utc>,
+struct Message {
+    message: String,
+    sender: String,
+    date: chrono::DateTime<chrono::Utc>,
 }
-
 
 async fn on_connect(socket: SocketRef) {
     info!("socket connected: {}", socket.id);
@@ -59,8 +59,6 @@ async fn handler(axum::extract::State(io): axum::extract::State<SocketIo>) {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tracing::subscriber::set_global_default(FmtSubscriber::default())?;
 
-    
-
     let (layer, io) = SocketIo::builder().build_layer();
 
     io.ns("/", on_connect);
@@ -74,10 +72,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .layer(CorsLayer::permissive())
                 .layer(layer),
         );
+    let port = env::var("PORT").unwrap_or_else(|_| "3000".to_string());
 
+    // Construct the address string
+    let addr = format!("0.0.0.0:{}", port);
     info!("Starting server");
 
-    axum::Server::bind(&"127.0.0.1:3000".parse().unwrap())
+    axum::Server::bind(&addr.parse().unwrap())
         .serve(app.into_make_service())
         .await?;
 
