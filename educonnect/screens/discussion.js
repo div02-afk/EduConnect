@@ -1,59 +1,122 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Pressable, TextInput, Keyboard } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  KeyboardAvoidingView,
+  FlatList,
+  Keyboard,
+  ScrollView,
+} from "react-native";
+
 import Navbar from "./components/navbar";
 import styles from "../styles";
 import store from "../store/store";
-// import { socket } from "./components/socket";
+import MessageBox from "./components/messageBox";
 import { io } from "socket.io-client";
+import addMessage from "../databaseFunctions/addMessage";
+import getMessages from "../databaseFunctions/getMessages";
 export default function Discussion({ navigation, onBackPress }) {
+  getMessages(store.getState().currentTopicName);
   const [socket, setSocket] = useState(null);
-  const [messages, setMessges] = useState([]);
+  const [messages, setMessages] = useState(store.getState().messages);
   const [message, setMessage] = useState("");
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  const flatListRef = useRef();
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true); // or some other action
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false); // or some other action
+      }
+    );
+  }, [Keyboard]);
+
   const sendMessage = () => {
+    if (message === "") {
+      return;
+    }
+    addMessage(store.getState().currentTopicName, message, "text");
     const data = {
       message: message,
       sender: store.getState().name,
       topic: store.getState().currentTopicName,
     };
-    console.log(data);
+    // console.log(data);
     socket?.emit("message", data);
     setMessage("");
-    Keyboard.dismiss();
   };
   useEffect(() => {
-    socket?.on("message", (message) => {
-      setMessges([...messages, message]);
+    socket?.on("message", (newMessage) => {
+      console.log(newMessage);
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
   }, [socket]);
   useEffect(() => {
-    const socket = io("ws://localhost:3000");
+    const socket = io("https://educonnect-38i3.onrender.com");
     console.log("joining ", store.getState().currentTopicId);
     socket?.on("connect", () => {
-        console.log("connected");
-        socket?.emit("join", store.getState().currentTopicName);
+      console.log("connected");
+      socket?.emit("join", store.getState().currentTopicName);
     });
     setSocket(socket);
   }, []);
+  // useEffect(() => {
+  //   flatListRef.current.scrollToEnd({ animated: true });
+  // }, [messages]);
   return (
     <>
-      <View style={styles.container}>
+      <View style={[styles.container]}>
         <Text style={styles.title}>Discussion</Text>
-        {messages.map((message, index) => (
-          <View key={index} style={styles.messageBox}>
-            <Text style={styles.messageSender}>{message.sender}</Text>
-            <Text key={index} style={styles.messageText}>
-              {message.message}
-            </Text>
-          </View>
-        ))}
+
         <View
           style={{
-            flex: 1,
-            flexDirection: "row",
+            // borderWidth: 1,
+            // borderColor: "white",
             width: "100%",
-            position: "absolute",
-            bottom: 80,
+            height: "80%",
+            zIndex: 2,
           }}
+        >
+          <FlatList
+            style={{
+              flex: 1,
+              // borderWidth: 1,
+              // borderColor: "red",
+              flexDirection: "column-reverse",
+            }}
+            data={messages}
+            ref={flatListRef}
+            onContentSizeChange={() =>
+              flatListRef.current.scrollToEnd({ animated: true })
+            }
+            renderItem={({ item }) => (
+              <MessageBox message={item.message} sender={item.sender} />
+            )}
+          ></FlatList>
+        </View>
+        <View
+          style={[
+            {
+              flex: 1,
+              flexDirection: "row",
+              width: "100%",
+              position: "absolute",
+            },
+            isKeyboardVisible
+              ? {bottom:0}
+              : {
+                  bottom: 60,
+                },
+          ]}
         >
           <TextInput
             value={message}
@@ -83,6 +146,7 @@ export default function Discussion({ navigation, onBackPress }) {
               backgroundColor: "white",
             }}
             onPress={() => {
+              console.log("sending message");
               sendMessage();
             }}
           ></Pressable>

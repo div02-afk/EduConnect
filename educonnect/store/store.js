@@ -11,13 +11,17 @@ const persistConfig = {
 const initialState = {
   name: "John Doe",
   email: "johndoe@gmail.com",
-  currentTopicId: "",
-  currentTopicName: "",
+  currentTopicId: "webD",
+  currentTopicName: "Web Development",
+  messages: [],
 };
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case "SET_MESSAGES":
+        draft.messages = [...action.payload.messages];
+        break;
       case LOGIN:
         draft.email = action.payload.email;
         draft.name = action.payload.name;

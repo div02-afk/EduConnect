@@ -100,27 +100,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     
   },
-  messageBox: {
-    // width: 200,
-    minWidth:100,
-    backgroundColor: "#171717",
-    margin: 10,
-    borderRadius: 10,
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  messageText:{
-    color:"#C6C6C6",
-    fontSize:20,
-    textAlign:"left",
-  },
-  messageSender:{
-    color:"#C8C8C8",
-    fontSize:16,
-    textAlign:"left",
-    fontWeight:"bold",
-  },
+  messageBox:{
+        backgroundColor: "#171717",
+        maxWidth: "70%",
+        minWidth: "30%",
+        margin: 10,
+        padding: 10,
+        flex: 1,
+        flexDirection: "column",
+        alignItems:"flex-start"
+    },
+    senderTitle:{
+        fontSize: 10,
+        color: "#c8c8c8",
+    },
+    messageText:{
+        fontSize: 16,
+        color: "#c6c6c6",
+    },
   accountInfo:{
     width:"100%",
     height:"20%",
