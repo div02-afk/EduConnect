@@ -8,6 +8,7 @@ import {
   FlatList,
   Keyboard,
   ScrollView,
+  ScrollViewBase,
 } from "react-native";
 
 import Navbar from "./components/navbar";
@@ -20,7 +21,7 @@ import getMessages from "../databaseFunctions/getMessages";
 export default function Discussion({ navigation, onBackPress }) {
   getMessages(store.getState().currentTopicName);
   const [socket, setSocket] = useState(null);
-  const [messages, setMessages] = useState(store.getState().messages);
+  const [messages, setMessages] = useState(store.getState().messages.reverse());
   const [message, setMessage] = useState("");
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -57,7 +58,7 @@ export default function Discussion({ navigation, onBackPress }) {
   useEffect(() => {
     socket?.on("message", (newMessage) => {
       console.log(newMessage);
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      setMessages((prevMessages) => [ ...prevMessages, newMessage]);
     });
   }, [socket]);
   useEffect(() => {
@@ -69,9 +70,10 @@ export default function Discussion({ navigation, onBackPress }) {
     });
     setSocket(socket);
   }, []);
-  // useEffect(() => {
-  //   flatListRef.current.scrollToEnd({ animated: true });
-  // }, [messages]);
+  useEffect(() => {
+    flatListRef.current.scrollToEnd({ animated: true });
+  }, []);
+
   return (
     <>
       <View style={[styles.container]}>
@@ -89,9 +91,8 @@ export default function Discussion({ navigation, onBackPress }) {
           <FlatList
             style={{
               flex: 1,
-              // borderWidth: 1,
-              // borderColor: "red",
-              flexDirection: "column-reverse",
+              // borderWidth:1,borderColor:"#fff",
+              // flexDirection: "column-reverse",
             }}
             data={messages}
             ref={flatListRef}
@@ -112,7 +113,7 @@ export default function Discussion({ navigation, onBackPress }) {
               position: "absolute",
             },
             isKeyboardVisible
-              ? {bottom:0}
+              ? { bottom: 0 }
               : {
                   bottom: 60,
                 },
@@ -134,6 +135,7 @@ export default function Discussion({ navigation, onBackPress }) {
                 marginLeft: 10,
                 width: "80%",
                 height: 40,
+                zIndex: 2,
               },
             ]}
           ></TextInput>
@@ -143,6 +145,7 @@ export default function Discussion({ navigation, onBackPress }) {
               height: 45,
               marginLeft: 10,
               borderRadius: 20,
+              zIndex: 2,
               backgroundColor: "white",
             }}
             onPress={() => {

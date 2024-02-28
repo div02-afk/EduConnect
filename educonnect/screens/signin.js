@@ -15,6 +15,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../styles";
 import store from "../store/store";
 import getName from "../databaseFunctions/getName";
+import { current } from "@reduxjs/toolkit";
 
 
 export default function Signin({ navigation, onBackPress }) {
@@ -27,7 +28,12 @@ export default function Signin({ navigation, onBackPress }) {
     let oldEmail = store.getState().email;
     let oldName = store.getState().name;
     if (oldEmail !== "" && oldName !== "" && oldName !== "John Doe" && oldEmail !== "johndoe@gmail.com") {
+      if(store.getState().currentTopicId !== "" && store.getState().currentTopicName !== "") {
+      navigation.navigate("Topic");
+    }
+    else{
       navigation.navigate("Welcome");
+    }
     }
   }, []);
 

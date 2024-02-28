@@ -29,7 +29,7 @@ export default function App() {
               },
             }}
           >
-            <stack.Navigator initialRouteName="Discussion">
+            <stack.Navigator initialRouteName="Signin">
               <stack.Screen
                 name="Signin"
                 component={Signin}

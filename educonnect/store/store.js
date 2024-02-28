@@ -9,8 +9,8 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 const initialState = {
-  name: "John Doe",
-  email: "johndoe@gmail.com",
+  name: "",
+  email: "",
   currentTopicId: "webD",
   currentTopicName: "Web Development",
   messages: [],
@@ -42,6 +42,12 @@ const reducer = (state = initialState, action) => {
       case SET_CURRENT_TOPIC:
         draft.currentTopicId = action.payload.id;
         draft.currentTopicName = action.payload.name;
+        break;
+      case "LOGOUT":
+        draft.name = "";
+        draft.email = "";
+        draft.currentTopicId = "";
+        draft.currentTopicName = "";
         break;
     }
   });

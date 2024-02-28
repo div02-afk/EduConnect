@@ -18,9 +18,6 @@ export default function Topic({ route, navigation, onBackPress }) {
   const [topicInfo, setTopicInfo] = useState([]);
   useEffect(() => {
     getTopicInfo(id).then((result) => {
-      // console.log("result:");
-      // console.log(result);/
-
       setTopicInfo(result);
     });
   }, []);
@@ -38,6 +35,7 @@ export default function Topic({ route, navigation, onBackPress }) {
       BackHandler.removeEventListener("hardwareBackPress", backhandling);
     };
   }, [onBackPress, navigation]);
+
   const sortedArray = {};
   topicInfo.forEach((obj) => {
     const subtopicPriority = obj.subTopicPriority;
@@ -54,12 +52,12 @@ export default function Topic({ route, navigation, onBackPress }) {
     <>
       <View>
         <Text onPress={()=>{navigation.navigate("Welcome")}} style={styles.title}>{store.getState().currentTopicName}</Text>
-        <View style={styles.subTopicList}>
+        <View style={[styles.subTopicList,{paddingTop:24}]}>
           {subTopicList.map((subtopic) => {
             return (
               <>
               
-              <Text style={[{color:"#c6c6c6",paddingLeft:10,fontSize:20,textAlign:"left",width:"100%", marginBottom:10}]}>{subtopic[0].subTopic}</Text>
+              <Text style={[{color:"#c6c6c6",paddingLeft:20,fontSize:24,textAlign:"left",width:"100%", marginBottom:10}]}>{subtopic[0].subTopic}</Text>
                 <FlatList horizontal={true} data={subtopic} renderItem={({item}) => <Card title={item.title} description={item.description} link={item.link} subTopic= {item.subTopic} />}></FlatList>
                 
               </>

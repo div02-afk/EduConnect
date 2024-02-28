@@ -7,6 +7,7 @@ export default async function getTopics() {
   try {
     const querySnapshot = await getDocs(collection(db, "topics"));
     querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
       topics.push(doc.data());
     });
     return topics;

@@ -40,9 +40,11 @@ export default function Welcome({ navigation, onBackPress }) {
       setTopics(result);
     });
   },[]);
+
   const filteredTopics = topics.filter((topic) =>
     topic.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  ) || [];
+  
   return (
     <>
     <StatusBar barStyle="light-content" />
@@ -69,6 +71,7 @@ export default function Welcome({ navigation, onBackPress }) {
               style={styles.topicButton}
               key={topic.id}
               onPress={() => {
+                console.log("pressed");
                 store.dispatch({
                   type: SET_CURRENT_TOPIC,
                   payload: {id:topic.id, name:topic.name},

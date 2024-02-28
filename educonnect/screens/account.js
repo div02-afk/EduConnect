@@ -18,7 +18,9 @@ export default function Account({ navigation, onBackPress }) {
         
         </View>
         <Text style={styles.text}>Currently learning {store.getState().currentTopicName}</Text>
-        <Pressable style= {[styles.button,{position:"absolute",bottom:60,backgroundColor:"gray"}]} onPress={()=>{navigation.navigate("Signin")}} >
+        <Pressable style= {[styles.button,{position:"absolute",bottom:60,backgroundColor:"gray"}]} onPress={()=>{
+          store.dispatch({type:"LOGOUT"});
+          navigation.navigate("Signin")}} >
           <Text style={[styles.text,{fontWeight:"bold"}]}>Log out</Text>
         </Pressable>
       </View>

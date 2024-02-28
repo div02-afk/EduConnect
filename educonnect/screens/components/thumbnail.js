@@ -3,8 +3,8 @@ import axios from 'axios';
 
 export function getYouTubeVideoId(url) {
     // Regular expression to match YouTube video ID
-    var regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-    var match = url.match(regExp);
+    let regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    let match = url.match(regExp);
 
     // If match found, return the video ID
     if (match && match[1]) {
