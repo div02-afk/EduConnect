@@ -44,10 +44,7 @@ export default function Topic({ route, navigation, onBackPress }) {
     }
     sortedArray[subtopicPriority].push(obj);
   });
-  // console.log(sortedArray);
-  // Step 3: Convert the object into an array of arrays
   const subTopicList = Object.values(sortedArray);
-  // console.log(subTopicList);
   return (
     <>
       <View>

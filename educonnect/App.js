@@ -15,6 +15,7 @@ import Discussion from "./screens/discussion";
 const stack = createNativeStackNavigator();
 
 export default function App() {
+  const initialRoute = store.getState().user != "" ? "Welcome" : "Signin";
   return (
     <>
       <Provider store={store}>
@@ -29,7 +30,7 @@ export default function App() {
               },
             }}
           >
-            <stack.Navigator initialRouteName="Signin">
+            <stack.Navigator initialRouteName={initialRoute}>
               <stack.Screen
                 name="Signin"
                 component={Signin}

@@ -1,17 +1,19 @@
 import { StyleSheet } from "react-native";
-
+import { useFonts, Poppins_400Regular } from "@expo-google-fonts/open-sans";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "flex-start",
+    fontFamily: Poppins_400Regular,
   },
   title: {
     color: "#C6C6C6",
     fontSize: 30,
     textAlign: "center",
     fontWeight: "bold",
+    fontFamily: Poppins_400Regular,
   },
   titleContainer: {
     width: "100%",
@@ -71,13 +73,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "column",
   },
-  scroll:{
-    width:"100%",
-    height:"100%",
-    borderWidth:2,
-    borderColor:"white",
-    flex:1,
-    flexDirection:"row",
+  scroll: {
+    width: "100%",
+    height: "100%",
+    borderWidth: 2,
+    borderColor: "white",
+    flex: 1,
+    flexDirection: "row",
   },
   navBar: {
     width: "100%",
@@ -98,38 +100,36 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
-    
   },
-  messageBox:{
-        backgroundColor: "#171717",
-        maxWidth: "70%",
-        minWidth: "30%",
-        margin: 10,
-        padding: 10,
-        flex: 1,
-        flexDirection: "column",
-        alignItems:"flex-start"
-    },
-    senderTitle:{
-        fontSize: 10,
-        color: "#c8c8c8",
-    },
-    messageText:{
-        fontSize: 16,
-        color: "#c6c6c6",
-    },
-  accountInfo:{
-    width:"100%",
-    height:"20%",
-    justifyContent:"center",
-    alignItems:"flex-start",
-    padding:20,
+  messageBox: {
+    backgroundColor: "#171717",
+    maxWidth: "70%",
+    minWidth: "30%",
+    margin: 10,
+    padding: 10,
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
-  text:{
-    color:"#C6C6C6",
-    fontSize:20,
-    textAlign:"center",
-    
+  senderTitle: {
+    fontSize: 10,
+    color: "#c8c8c8",
+  },
+  messageText: {
+    fontSize: 16,
+    color: "#c6c6c6",
+  },
+  accountInfo: {
+    width: "100%",
+    height: "20%",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    padding: 20,
+  },
+  text: {
+    color: "#C6C6C6",
+    fontSize: 20,
+    textAlign: "center",
   },
   navbarIcon: {
     color: "#C9C9C9",
