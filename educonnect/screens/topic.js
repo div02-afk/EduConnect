@@ -45,25 +45,60 @@ export default function Topic({ route, navigation, onBackPress }) {
     sortedArray[subtopicPriority].push(obj);
   });
   const subTopicList = Object.values(sortedArray);
+  // console.log(subTopicList.length);
   return (
     <>
       <View>
-        <Text onPress={()=>{navigation.navigate("Welcome")}} style={styles.title}>{store.getState().currentTopicName}</Text>
-        <View style={[styles.subTopicList,{paddingTop:24}]}>
-          {subTopicList.map((subtopic) => {
-            return (
-              <>
-              
-              <Text style={[{color:"#c6c6c6",paddingLeft:20,fontSize:24,textAlign:"left",width:"100%", marginBottom:10}]}>{subtopic[0].subTopic}</Text>
-                <FlatList horizontal={true} data={subtopic} renderItem={({item}) => <Card title={item.title} description={item.description} link={item.link} subTopic= {item.subTopic} />}></FlatList>
-                
-              </>
-            );
-          })}
+        <Text
+          onPress={() => {
+            navigation.navigate("Welcome");
+          }}
+          style={[styles.title,{padding:10}]}
+        >
+          {store.getState().currentTopicName}
+        </Text>
+        <View style={[styles.subTopicList, { paddingTop: 0 }]}>
+          <View style={{ height: 600, marginTop: 50 }}>
+            <FlatList
+              data={subTopicList}
+              renderItem={(subtopic) => (
+                <>
+                  <Text
+                    style={[
+                      {
+                        color: "#c6c6c6",
+                        paddingLeft: 20,
+                        fontSize: 24,
+                        textAlign: "left",
+                        width: "100%",
+                        marginBottom: 10,
+                        marginTop: 10,
+                      },
+                    ]}
+                  >
+                    {subtopic.item[0].subTopic}
+                  </Text>
+                  <FlatList
+                    horizontal={true}
+                    data={subtopic.item}
+                    renderItem={({ item }) => (
+                      <Card
+                        title={item.title}
+                        description={item.description}
+                        link={item.link}
+                        subTopic={item.subTopic}
+                        type={item.type}
+                        thumbnail={item.thumbnail}
+                      />
+                    )}
+                  ></FlatList>
+                </>
+              )}
+            ></FlatList>
+          </View>
         </View>
       </View>
       <Navbar navigation={navigation} />
     </>
   );
 }
-

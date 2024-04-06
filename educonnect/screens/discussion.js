@@ -4,13 +4,13 @@ import {
   Text,
   Pressable,
   TextInput,
-  KeyboardAvoidingView,
   FlatList,
   Keyboard,
-  ScrollView,
-  ScrollViewBase,
 } from "react-native";
-
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faPaperPlane
+} from "@fortawesome/free-solid-svg-icons";
 import Navbar from "./components/navbar";
 import styles from "../styles";
 import store from "../store/store";
@@ -146,13 +146,17 @@ export default function Discussion({ navigation, onBackPress }) {
               marginLeft: 10,
               borderRadius: 20,
               zIndex: 2,
-              backgroundColor: "white",
+              backgroundColor: "blue",
+              justifyContent:"center",
+              alignItems:"center"
             }}
             onPress={() => {
               console.log("sending message");
               sendMessage();
             }}
-          ></Pressable>
+          >
+            <FontAwesomeIcon size = {25} icon={faPaperPlane} />
+          </Pressable>
         </View>
       </View>
       <Navbar navigation={navigation} />
